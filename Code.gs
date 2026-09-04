@@ -176,12 +176,13 @@ function sendReportEmail(payload, photoLinks, pdfLink) {
   const number = payload.numeroInforme;
   const toll = fields.peaje || 'Peaje Fragua';
   const subject = 'Informe tecnico ' + number + ' - ' + toll;
-  const html = buildReportHtml(payload, photoLinks);
-  const pdf = pdfLink ? DriveApp.getFileById(pdfLink.match(/[-\w]{25,}/)[0]).getBlob() : createReportPdf(payload, photoLinks);
+  const pdf = pdfLink
+    ? DriveApp.getFileById(pdfLink.match(/[-\w]{25,}/)[0]).getBlob()
+    : createReportPdf(payload, photoLinks);
   MailApp.sendEmail({
     to: CONFIG.recipients,
     subject: subject,
-    htmlBody: html,
+    htmlBody: '<p>Se adjunta el informe tecnico <b>' + escapeHtml(number) + '</b> correspondiente a <b>' + escapeHtml(toll) + '</b>.</p><p>El archivo adjunto es el PDF generado por el sistema.</p>',
     body: 'Se adjunta el informe tecnico ' + number + ' correspondiente a ' + toll + '.',
     attachments: [pdf]
   });
