@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FARGAU | Gestión de Mantenimiento</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+ <div class="brand"><div class="brandmark">F</div><div><b>FARGAU</b><small>Gestión de Mantenimiento</small></div></div>
+ <nav><button class="nav-link active" data-page="dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</button>
+ <button class="nav-link" data-page="nuevo"><i class="bi bi-file-earmark-plus"></i> Nuevo formato</button>
+ <button class="nav-link" data-page="historial"><i class="bi bi-clock-history"></i> Historial</button>
+ <button class="nav-link" data-page="dispositivos"><i class="bi bi-cpu"></i> Dispositivos</button>
+ <button class="nav-link" data-page="tecnicos"><i class="bi bi-person-badge"></i> Técnicos</button>
+ <button class="nav-link" data-page="excel"><i class="bi bi-file-earmark-spreadsheet"></i> Excel Online</button></nav>
+ <div class="sidebottom">● SISTEMA ACTIVO<br><small>Peaje FARGAU</small></div>
+</aside>
+<main><header class="topbar"><button id="menu" class="btn menu"><i class="bi bi-list"></i></button><div><small>CONTROL OPERATIVO</small><h1 id="pageTitle">Dashboard</h1></div><div class="user"><span>FG</span><div><b>FARGAU</b><small>Supervisor</small></div></div></header>
+
+<section id="dashboard" class="page active">
+ <div class="hero"><div><span class="eyebrow">PEAJE FARGAU</span><h2>Control de mantenimiento</h2><p>Diagnóstico, intervención, evidencias, firmas y trazabilidad de dispositivos.</p></div><button class="btn btn-primary btn-lg" data-page="nuevo"><i class="bi bi-plus-lg"></i> Crear formato</button></div>
+ <div class="row g-3 mt-3"><div class="col-lg-3 col-md-6"><div class="metric"><i class="bi bi-file-earmark-text"></i><div><small>Formatos</small><strong id="statTotal">0</strong></div></div></div>
+ <div class="col-lg-3 col-md-6"><div class="metric green"><i class="bi bi-check2-circle"></i><div><small>Operativos</small><strong id="statOp">0</strong></div></div></div>
+ <div class="col-lg-3 col-md-6"><div class="metric orange"><i class="bi bi-wrench-adjustable"></i><div><small>Correctivos</small><strong id="statCor">0</strong></div></div></div>
+ <div class="col-lg-3 col-md-6"><div class="metric red"><i class="bi bi-exclamation-octagon"></i><div><small>Fuera de servicio</small><strong id="statFds">0</strong></div></div></div></div>
+ <div class="cardx mt-4"><div class="cardhead"><div><h3>Últimas intervenciones</h3><p>Actividad reciente del Peaje FARGAU</p></div><button class="btn btn-outline-primary btn-sm" data-page="historial">Ver historial</button></div>
+ <div class="table-responsive"><table class="table"><thead><tr><th>Formato</th><th>Fecha</th><th>Dispositivo</th><th>Tipo</th><th>Técnico</th><th>Estado</th><th></th></tr></thead><tbody id="recent"></tbody></table></div></div>
+</section>
+
+<section id="nuevo" class="page">
+ <div class="heading"><div><span class="eyebrow">FORMATO TÉCNICO</span><h2>Registro de mantenimiento</h2><p>Complete la intervención y genere el documento técnico.</p></div><div class="folio"><small>FORMATO</small><b id="folio"></b></div></div>
+ <form id="maintenanceForm">
+ <div class="cardx formcard"><h3><span>01</span> Identificación de la intervención</h3><div class="row g-3">
+  <div class="col-md-3"><label>Peaje</label><input value="FARGAU" readonly></div>
+  <div class="col-md-3"><label>Carril *</label><select id="carril" required><option value="">Seleccione</option><option>Carril 01</option><option>Carril 02</option><option>Carril 03</option><option>Carril 04</option><option>Carril 05</option><option>Carril 06</option><option>Carril 07</option><option>Carril 08</option><option>Plaza / General</option></select></div>
+  <div class="col-md-3"><label>Fecha *</label><input id="fecha" type="date" required></div><div class="col-md-3"><label>Turno</label><select id="turno"><option>Diurno</option><option>Nocturno</option><option>Mixto</option></select></div>
+  <div class="col-md-3"><label>Hora inicio</label><input id="horaInicio" type="time"></div><div class="col-md-3"><label>Hora fin</label><input id="horaFin" type="time"></div>
+  <div class="col-md-3"><label>Tipo de mantenimiento *</label><select id="tipo" required><option value="">Seleccione</option><option>Preventivo</option><option>Correctivo</option><option>Inspección</option><option>Instalación</option><option>Retiro</option></select></div>
+  <div class="col-md-3"><label>Prioridad</label><select id="prioridad"><option>Normal</option><option>Alta</option><option>Crítica</option></select></div>
+  <div class="col-12"><label>Motivo / solicitud</label><textarea id="motivo" rows="2"></textarea></div>
+ </div></div>
+
+ <div class="cardx formcard"><h3><span>02</span> Dispositivo intervenido</h3><div class="row g-3">
+  <div class="col-md-3"><label>Código *</label><input id="codigo" placeholder="FAR-C01-BAR-001" required></div><div class="col-md-3"><label>Número de serie</label><input id="serie"></div>
+  <div class="col-md-3"><label>Tipo de dispositivo *</label><select id="tipoDis" required><option value="">Seleccione</option><option>Barrera</option><option>Antena RFID</option><option>Controlador de carril</option><option>Semáforo</option><option>Sensor</option><option>Cámara</option><option>Intercomunicador</option><option>UPS</option><option>Gabinete</option><option>Otro</option></select></div>
+  <div class="col-md-3"><label>Ubicación</label><input id="ubicacion" placeholder="Carril / gabinete / caseta"></div>
+  <div class="col-md-4"><label>Marca</label><input id="marca"></div><div class="col-md-4"><label>Modelo</label><input id="modelo"></div><div class="col-md-4"><label>Estado inicial</label><select id="estadoInicial"><option>Operativo</option><option>Con falla</option><option>Fuera de servicio</option><option>En observación</option></select></div>
+ </div></div>
+
+ <div class="cardx formcard"><h3><span>03</span> Diagnóstico técnico</h3><div class="row g-3">
+  <div class="col-12"><label>Falla / síntoma reportado *</label><textarea id="falla" rows="3" required placeholder="Describa exactamente qué estaba ocurriendo..."></textarea></div>
+  <div class="col-12"><label>Diagnóstico técnico *</label><textarea id="diagnostico" rows="5" required placeholder="Causa probable, mediciones, pruebas de diagnóstico, códigos de error, hallazgos..."></textarea></div>
+  <div class="col-12"><label>Actividades realizadas *</label><textarea id="actividades" rows="5" required placeholder="Detalle paso a paso la intervención realizada..."></textarea></div>
+  <div class="col-12"><label>Pruebas de funcionamiento</label><textarea id="pruebas" rows="4" placeholder="Pruebas ejecutadas y resultados obtenidos..."></textarea></div>
+ </div></div>
+
+ <div class="cardx formcard"><div class="linehead"><h3><span>04</span> Repuestos y materiales</h3><button type="button" class="btn btn-primary btn-sm" id="addPart"><i class="bi bi-plus"></i> Agregar repuesto</button></div><div id="parts"></div><div id="emptyPart" class="empty">No se han agregado repuestos o materiales.</div></div>
+
+ <div class="cardx formcard"><h3><span>05</span> Cierre de la intervención</h3><div class="row g-3">
+  <div class="col-md-4"><label>Estado final *</label><select id="estadoFinal" required><option>Operativo</option><option>Operativo con observaciones</option><option>Fuera de servicio</option><option>Pendiente de repuesto</option><option>Requiere seguimiento</option></select></div>
+  <div class="col-md-4"><label>¿Requiere seguimiento?</label><select id="seguimiento"><option>No</option><option>Sí</option></select></div>
+  <div class="col-md-4"><label>Fecha próxima revisión</label><input id="proxima" type="date"></div>
+  <div class="col-12"><label>Observaciones finales</label><textarea id="observaciones" rows="3"></textarea></div>
+ </div></div>
+
+ <div class="cardx formcard"><h3><span>06</span> Responsables y firmas</h3><div class="row g-3">
+  <div class="col-md-6"><label>Técnico responsable *</label><input id="tecnico" required placeholder="Nombre completo del técnico"></div>
+  <div class="col-md-6"><label>Documento / identificación del técnico</label><input id="docTecnico"></div>
+  <div class="col-md-6"><label>Responsable del peaje *</label><input id="responsable" required placeholder="Nombre completo"></div>
+  <div class="col-md-6"><label>Cargo del responsable</label><input id="cargoResponsable" placeholder="Supervisor, coordinador, etc."></div>
+  <div class="col-md-6"><label>Firma del técnico (dibuje con el mouse o dedo)</label><canvas id="sigTecnico" class="signature"></canvas><button type="button" class="btn btn-sm btn-light mt-1" data-clear="sigTecnico">Limpiar firma</button></div>
+  <div class="col-md-6"><label>Firma responsable del peaje</label><canvas id="sigResponsable" class="signature"></canvas><button type="button" class="btn btn-sm btn-light mt-1" data-clear="sigResponsable">Limpiar firma</button></div>
+ </div></div>
+
+ <div class="cardx formcard"><h3><span>07</span> Evidencias fotográficas</h3><input id="fotos" type="file" accept="image/*" multiple><div id="preview" class="photos"></div><small class="hint">Las evidencias se incluirán en el PDF.</small></div>
+ <div class="actions"><button type="button" class="btn btn-light" id="cancel">Cancelar</button><button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-file-earmark-check"></i> Guardar + PDF</button></div>
+ </form>
+</section>
+
+<section id="historial" class="page"><div class="heading"><div><span class="eyebrow">TRAZABILIDAD</span><h2>Historial de formatos</h2><p>Consulte, vuelva a generar PDF o elimine registros.</p></div></div>
+<div class="cardx"><div class="filters"><input id="search" placeholder="Buscar formato, dispositivo, técnico..."><select id="fType"><option value="">Todos los tipos</option><option>Preventivo</option><option>Correctivo</option><option>Inspección</option><option>Instalación</option><option>Retiro</option></select><select id="fState"><option value="">Todos los estados</option><option>Operativo</option><option>Operativo con observaciones</option><option>Fuera de servicio</option><option>Pendiente de repuesto</option><option>Requiere seguimiento</option></select><button id="clearFilters" class="btn btn-outline-secondary">Limpiar</button></div>
+<div class="table-responsive"><table class="table"><thead><tr><th>Formato</th><th>Fecha</th><th>Dispositivo</th><th>Técnico</th><th>Tipo</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="history"></tbody></table></div></div></section>
+
+<section id="dispositivos" class="page"><div class="heading"><div><span class="eyebrow">INVENTARIO</span><h2>Dispositivos intervenidos</h2><p>Estado actualizado según el último mantenimiento registrado.</p></div></div><div class="cardx"><div class="table-responsive"><table class="table"><thead><tr><th>Código</th><th>Tipo</th><th>Serie</th><th>Ubicación</th><th>Última fecha</th><th>Estado</th></tr></thead><tbody id="devices"></tbody></table></div></div></section>
+
+<section id="tecnicos" class="page"><div class="heading"><div><span class="eyebrow">PERSONAL TÉCNICO</span><h2>Técnicos registrados</h2><p>Resumen de intervenciones por técnico.</p></div></div><div class="cardx"><div class="table-responsive"><table class="table"><thead><tr><th>Técnico</th><th>Documento</th><th>Intervenciones</th><th>Correctivos</th><th>Última intervención</th></tr></thead><tbody id="techs"></tbody></table></div></div></section>
+
+<section id="excel" class="page"><div class="heading"><div><span class="eyebrow">NUBE</span><h2>Excel Online / Google Sheets</h2><p>Configure una o ambas conexiones. Cada registro guardado se enviará automáticamente.</p></div></div>
+
+<div class="cardx formcard"><h3><span><i class="bi bi-google"></i></span> Google Sheets (Apps Script)</h3>
+<label>URL de la implementación de Apps Script (termina en /exec)</label><input id="sheetsUrl" placeholder="https://script.google.com/macros/s/XXXX/exec">
+<p class="hint mt-2">Pegue <code>Código.gs</code> en Extensiones → Apps Script del Sheet, ejecute <code>setup()</code>, implemente como <b>Aplicación web</b> con acceso <b>Cualquier usuario</b>, y use aquí la URL <code>/exec</code>.</p>
+<button id="saveSheets" class="btn btn-primary">Guardar conexión</button> <button id="testSheets" class="btn btn-outline-primary">Enviar prueba</button>
+<div class="alert alert-info mt-3">Si la prueba falla, revise que la implementación esté como <b>Ejecutar como: Yo</b> y <b>Acceso: Cualquiera</b>, y que copió la URL <code>/exec</code> (no la de edición del script).</div></div>
+
+<div class="cardx formcard"><h3><span><i class="bi bi-cloud-arrow-up"></i></span> Excel Online (Power Automate)</h3><label>URL HTTP de Power Automate</label><input id="flowUrl" placeholder="https://prod-...logic.azure.com/..."><p class="hint mt-2">El navegador enviará el JSON completo del formato a esta URL.</p><button id="saveFlow" class="btn btn-primary">Guardar conexión</button> <button id="testFlow" class="btn btn-outline-primary">Enviar prueba</button>
+<div class="alert alert-info mt-3"><b>Power Automate:</b> disparador <b>When an HTTP request is received</b> → acción <b>Add a row into a table</b> en Excel Online. Por CORS, el navegador no puede confirmar la respuesta del flujo; verifique en el historial de ejecuciones de Power Automate.</div></div>
+
+<div class="cardx formcard"><h3><span><i class="bi bi-download"></i></span> Respaldo</h3><p>Descargue todos los registros en CSV para abrirlos en Excel.</p><button id="csv" class="btn btn-outline-primary"><i class="bi bi-file-earmark-spreadsheet"></i> Descargar CSV</button></div></section>
+</main><div id="toast"></div>
+<script src="app.js"></script></body></html>
