@@ -55,6 +55,8 @@ function getHistory(query) {
     let pdf = row[26] || '';
     if (!pdf && index < 10) {
       pdf = repairMissingPdf(sheet, row, entry.rowNumber);
+    } else if (pdf) {
+      ensurePdfAccess(pdf);
     }
     return {
       registrado: row[0], numero: row[1], peaje: row[2], fecha: row[3],
@@ -243,7 +245,21 @@ function saveReportPdf(payload, photoLinks) {
   const folders = DriveApp.getFoldersByName(CONFIG.reportFolderName);
   const folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(CONFIG.reportFolderName);
   const file = folder.createFile(createReportPdf(payload, photoLinks));
+  try {
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  } catch (sharingError) {
+    console.warn('No se pudo habilitar el acceso por enlace al PDF: ' + sharingError.message);
+  }
   return 'https://drive.google.com/uc?export=download&id=' + file.getId();
+}
+
+function ensurePdfAccess(pdfLink) {
+  try {
+    const match = String(pdfLink).match(/[-\w]{25,}/);
+    if (match) DriveApp.getFileById(match[0]).setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  } catch (sharingError) {
+    console.warn('No se pudo actualizar el acceso del PDF: ' + sharingError.message);
+  }
 }
 
 function buildReportHtml(payload, photoLinks) {

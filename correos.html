@@ -17,7 +17,7 @@
 <header class="topbar"><div class="topbar-inner"><div class="brand"><i class="bi bi-envelope-check"></i><div><strong>Correos enviados</strong><span>Seguimiento de informes remitidos</span></div></div><div class="nav-links"><a class="button light" href="home.html"><i class="bi bi-house-door-fill"></i><span>Inicio</span></a><a class="button light" href="index.html"><i class="bi bi-file-earmark-plus"></i><span>Nuevo informe</span></a></div></div></header>
 <main><div class="intro"><h1>Seguimiento de envíos</h1><p>Consulta cuándo fue enviado cada informe y descarga su PDF.</p></div><div class="searchbar"><input id="query" type="search" placeholder="Buscar por número, destinatario o asunto" autofocus><button class="button" id="searchButton" type="button"><i class="bi bi-search"></i><span>Buscar</span></button></div><div class="status" id="status" role="status">Cargando envíos...</div><div class="table-wrap"><div id="results" class="empty">Consultando correos enviados...</div></div></main>
 <script>
-const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyq0PyY5yHN4P4tKdOafIfIiCPFarPeD7F3PwQXu1nKcMCvGClhhDbVnseYA2s0v5ZsVw/exec';
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbxUbv5PDbSc7pZF2PrFOrC3Ni_hIOHAcEF4HVdk_rBPad2DqrfPqWfzsua58cSpF6A2/exec';
 const query=document.getElementById('query'),status=document.getElementById('status'),results=document.getElementById('results');
 function escapeHtml(value){return String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
 function loadSent(){
