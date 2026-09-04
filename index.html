@@ -44,10 +44,25 @@ h2.sec{font-size:12px;color:#263238;margin:13px 0 7px}h2.sec:before{content:"";d
 .caption{padding:5px 6px;color:#637785;font-size:8px;line-height:1.3;background:#f7fafb;border-top:1px solid #dce5e8}
 .history-panel{max-width:1100px;margin:18px auto;background:#fff;border:1px solid #d7e0e4;border-radius:10px;padding:24px;box-shadow:0 8px 28px #26323818}.history-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}.history-head h2{margin:0;font-family:"Barlow Condensed",Arial,sans-serif;color:#173f52;font-size:23px}.history-search{display:flex;gap:8px}.history-search input{min-width:280px}.history-table-wrap{overflow:auto;border:1px solid #dce5e8}.history-table{width:100%;border-collapse:collapse;font-size:12px;min-width:820px}.history-table th{background:#f0f5f6;color:#49646e;text-align:left;font-size:10px;letter-spacing:.5px;text-transform:uppercase}.history-table th,.history-table td{padding:9px 10px;border-bottom:1px solid #e1e8ea;vertical-align:top}.history-table tr:last-child td{border-bottom:0}.history-table tr:hover td{background:#fbfcfc}.history-empty{padding:22px;text-align:center;color:#71838b;font-size:13px}.history-status{font-size:11px;color:#637785;margin:8px 0}.history-panel[hidden]{display:none}
 .modal-backdrop-custom{position:fixed;inset:0;z-index:100;background:#173f5266;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .18s ease,visibility .18s ease}.modal-backdrop-custom.is-open{opacity:1;visibility:visible}.modal-card-custom{width:min(420px,100%);background:#fff;border:1px solid #d6e1e5;border-top:4px solid #d96b2b;border-radius:8px;box-shadow:0 16px 40px #173f5233;padding:22px;transform:translateY(8px);transition:transform .18s ease}.is-open .modal-card-custom{transform:translateY(0)}.modal-card-custom h2{margin:0 0 8px;color:#173f52;font-family:"Barlow Condensed",Arial,sans-serif;font-size:23px}.modal-card-custom p{margin:0;color:#52656d;font-size:13px;line-height:1.5}.modal-actions-custom{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.modal-actions-custom .btn{min-width:96px}.modal-close-custom{position:absolute;right:10px;top:8px;border:0;background:transparent;color:#637785;font-size:24px;line-height:1}.modal-card-wrap{position:relative}
+.loading-overlay{position:fixed;inset:0;background:rgba(12,30,38,.56);display:none;align-items:center;justify-content:center;z-index:120}.loading-overlay.show{display:flex}.loading-card{background:#fff;border-radius:14px;padding:20px 24px;box-shadow:0 18px 45px rgba(15,31,38,.25);text-align:center;min-width:220px}.loading-spinner{width:42px;height:42px;border:4px solid #deebf0;border-top-color:#d96b2b;border-radius:50%;margin:0 auto 12px;animation:spin 1s linear infinite}.loading-card strong{display:block;color:#173f52;font-size:16px}.loading-card span{display:block;color:#52656d;font-size:12px;margin-top:4px}@keyframes spin{to{transform:rotate(360deg)}}
+.status-banner{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:8px;font-size:12px;font-weight:600;margin-top:12px;border:1px solid transparent;transition:all .2s ease}.status-banner.info{background:#edf8ff;border-color:#bfe0f5;color:#0a5a7a}.status-banner.success{background:#edfaf3;border-color:#bfe7d6;color:#1a6c4d}.status-banner.error{background:#fff1f1;border-color:#f3caca;color:#9a2d2d}.status-banner.warning{background:#fff8ee;border-color:#f0d4a3;color:#8f5d17}.status-badge{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block;opacity:.9}
 .toolbar{background:#173f52;border-bottom:4px solid #d96b2b;padding:10px 24px;box-shadow:0 5px 18px #173f5230}.toolbar-inner{max-width:1180px;gap:18px}.toolbar-brand{color:#fff;min-width:275px}.toolbar-brand strong{font-size:21px}.toolbar-brand span{color:#b9d0d7;font-size:10px}.toolbar-logos{display:flex;align-items:center;gap:7px;padding-right:12px;border-right:1px solid #80aab5}.toolbar-logos img{height:32px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 2px #0003)}.toolbar-logos .zima{max-width:48px}.toolbar .btn-group{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px;padding:4px;border-color:#80aab5;background:#204e61}.toolbar .btn{color:#eaf3f5;background:transparent;border:1px solid transparent;font-size:11px;padding:7px 9px}.toolbar .btn:hover{background:#326477;color:#fff;filter:none}.toolbar .btn-primary{background:#d96b2b;color:#fff}.toolbar .btn-success{background:#237a5a;color:#fff}.toolbar .btn-warning{background:#f0a36c;color:#513515}.toolbar .btn-outline-secondary{color:#eaf3f5;border-color:#80aab5}
 .toolbar{padding-top:12px;padding-bottom:12px}.toolbar-inner{align-items:stretch}.toolbar-brand{display:flex;align-items:center}.toolbar-logos{background:#fff;border:0;border-radius:8px;padding:6px 8px;margin-right:2px;gap:8px;box-shadow:0 2px 7px #061c2633}.toolbar-logo-slot{position:relative;width:40px;height:40px;display:flex;align-items:center;justify-content:center}.toolbar-logos img{position:relative;z-index:2;height:38px;max-width:62px;filter:none}.toolbar-logos .ani{width:38px}.toolbar-logos .zima{width:58px;max-width:58px}.toolbar-logo-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#173f52;font:700 14px/1 "Barlow Condensed",Arial;text-align:center}.toolbar-logo-slot.is-fallback img{display:none}.toolbar-actions{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}.toolbar .btn-group{border:0;border-radius:0;background:transparent;padding:0;display:grid;gap:5px}.toolbar-main-actions{grid-template-columns:repeat(3,minmax(0,1fr))}.toolbar-main-actions .btn{font-size:11px;font-weight:700;padding:8px 11px;box-shadow:0 2px 5px #061c2633;white-space:nowrap}.toolbar-main-actions .btn-outline-primary{background:#286075;color:#fff;border-color:#80aab5}.toolbar-tools{grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid #80aab566;padding-top:5px}.toolbar-tools .btn{font-size:10px;padding:6px 8px;color:#dce9ec;white-space:nowrap}.toolbar-tools .btn i{color:#f0a36c}
 .toolbar{background:#153f50;border-bottom:3px solid #d96b2b;padding:14px 26px}.toolbar-inner{max-width:1240px;gap:30px}.toolbar-brand{min-width:300px}.toolbar-logos{display:flex!important;align-items:center;justify-content:center;background:#fff;padding:7px 10px;border-radius:10px;gap:9px;box-shadow:0 3px 10px #061c2640;min-width:130px;min-height:56px}.toolbar-logos img{display:block!important;height:40px!important;width:auto!important;object-fit:contain!important}.toolbar-logos .ani{width:40px}.toolbar-logos .zima{width:62px;max-width:62px}.toolbar-brand strong{font-size:22px;letter-spacing:.1px}.toolbar-brand span{font-size:10px;letter-spacing:.2px}.toolbar-actions{gap:7px}.toolbar-main-actions{gap:8px}.toolbar-main-actions .btn{border:0;border-radius:6px;padding:10px 13px;font-size:11px;box-shadow:0 3px 8px #061c2628}.toolbar-main-actions .btn-primary{background:#e47a3a}.toolbar-main-actions .btn-success{background:#2a8568}.toolbar-main-actions .btn-outline-primary{background:#34728a;border:1px solid #75a6b4}.toolbar-tools{border-top:1px solid #80aab544;padding-top:6px;gap:2px}.toolbar-tools .btn{border:0!important;border-radius:4px;background:transparent!important;padding:6px 9px;color:#c9dadd;font-weight:600}.toolbar-tools .btn:hover{background:#28586a!important;color:#fff}.toolbar-tools .btn i{color:#f0a36c}
 @media(max-width:800px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.sheet{width:100%;padding:20px;box-shadow:none}#photosContainer{grid-template-columns:1fr}.toolbar-inner{flex-direction:column;align-items:stretch;gap:10px}.toolbar-brand{justify-content:center}.toolbar-main-actions,.toolbar-tools{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar .btn{padding-left:8px;padding-right:8px;white-space:normal}}
+.toolbar-tools{grid-template-columns:repeat(5,minmax(0,1fr))}.toolbar-tools .btn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:1100px) and (min-width:801px){.toolbar-inner{gap:16px}.toolbar-brand{min-width:250px}.toolbar-tools{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:800px){.toolbar-tools{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar-tools .btn{white-space:normal}}
+.toolbar-inner{display:grid;grid-template-columns:230px minmax(0,1fr);grid-template-rows:auto 1fr;align-items:stretch;gap:8px 24px}
+.toolbar-brand{grid-column:1;grid-row:1;min-width:0}
+.toolbar-actions{display:contents}
+.toolbar-main-actions{grid-column:2;grid-row:1 / span 2;align-self:start;align-content:start}
+.toolbar-tools{grid-column:1;grid-row:2;display:grid!important;grid-template-columns:1fr!important;align-content:start;border-top:1px solid #80aab544;padding-top:8px;gap:4px}
+.toolbar-tools .btn{justify-content:flex-start;text-align:left;padding:7px 10px}
+@media(max-width:800px){.toolbar-inner{display:flex;flex-direction:column;align-items:stretch;gap:10px}.toolbar-brand{order:0}.toolbar-actions{display:flex;flex-direction:column;gap:7px}.toolbar-main-actions{order:0}.toolbar-tools{order:1;grid-template-columns:repeat(2,minmax(0,1fr))!important;border-top:1px solid #80aab544;padding-top:6px}.toolbar-tools .btn{justify-content:center;text-align:center}}
+.toolbar{position:sticky;top:0;z-index:20;height:auto;min-height:0}
+@media(min-width:801px){.toolbar-inner{display:grid;grid-template-columns:290px minmax(0,1fr);grid-template-rows:auto auto;align-items:center;gap:7px 24px}.toolbar-brand{grid-column:1;grid-row:1 / span 2;align-self:center;min-width:0}.toolbar-actions{display:contents}.toolbar-main-actions{grid-column:2;grid-row:1;align-self:center}.toolbar-tools{grid-column:2;grid-row:2;align-self:center;grid-template-columns:repeat(5,minmax(0,1fr))!important;border-top:1px solid #80aab544;padding-top:5px}.toolbar-tools .btn{justify-content:center;text-align:center;padding:6px 7px;font-size:10px}.toolbar-inner,.toolbar-actions,.toolbar-main-actions,.toolbar-tools{height:auto;min-height:0}}
+@media(max-width:1100px) and (min-width:801px){.toolbar-inner{grid-template-columns:250px minmax(0,1fr);gap:6px 16px}.toolbar-tools{grid-template-columns:repeat(4,minmax(0,1fr))!important}.toolbar-brand strong{font-size:19px}}
 </style>
 <style media="print">
 @page{size:A4;margin:0}
@@ -94,17 +109,14 @@ body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
     </button>
   </div>
   <div class="btn-group toolbar-tools" role="group" aria-label="Herramientas del informe">
+    <button type="button" class="btn btn-outline-secondary btn-sm px-3" onclick="window.location.href='home.html'">
+      <i class="bi bi-house-door-fill me-1"></i> Inicio
+    </button>
     <button type="button" class="btn btn-success btn-sm px-3" onclick="document.getElementById('editor').scrollIntoView({behavior:'smooth'})">
       <i class="bi bi-pencil-square me-1"></i> Editar información
     </button>
     <button type="button" class="btn btn-warning btn-sm px-3" onclick="resetForm()">
       <i class="bi bi-arrow-counterclockwise me-1"></i> Limpiar todo
-    </button>
-    <button type="button" class="btn btn-outline-secondary btn-sm px-3" onclick="exportarBorrador()" title="Descargar respaldo">
-      <i class="bi bi-download me-1"></i> Respaldo
-    </button>
-    <button type="button" class="btn btn-outline-secondary btn-sm px-3" onclick="document.getElementById('importarArchivo').click()" title="Cargar respaldo">
-      <i class="bi bi-upload me-1"></i> Cargar
     </button>
     <button type="button" class="btn btn-outline-secondary btn-sm px-3" onclick="window.location.href='historial.html'">
       <i class="bi bi-clock-history me-1"></i> Ver historial
@@ -158,7 +170,15 @@ body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 <input type="file" id="importarArchivo" accept="application/json" hidden>
 <div id="imagePreviewContainer" class="image-preview-list"></div>
 <div class="alert alert-info py-2 px-3 mt-3 mb-0 small"><i class="bi bi-info-circle-fill me-1"></i> Completa la información y agrega las imágenes. El documento se actualiza automáticamente. Al imprimir, esta zona de edición no aparece.</div>
-<div id="cloudStatus" class="small text-muted mt-2" role="status"></div>
+<div id="cloudStatus" class="status-banner info" role="status"><span class="status-badge"></span><span>Listo para registrar informe</span></div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay" aria-live="polite" aria-busy="true">
+  <div class="loading-card">
+    <div class="loading-spinner"></div>
+    <strong id="loadingTitle">Procesando</strong>
+    <span id="loadingText">Guardando informe...</span>
+  </div>
 </div>
 
 <section class="history-panel" id="historyPanel" hidden>
@@ -367,6 +387,28 @@ function update(){
  document.getElementById("firma2").textContent=document.getElementById("supervisor").value||"Nombre y firma";
 }
 
+function setStatus(message, type = 'info') {
+ const status = document.getElementById('cloudStatus');
+ if (!status) return;
+ status.className = 'status-banner ' + type;
+ status.innerHTML = '<span class="status-badge"></span><span>' + message + '</span>';
+}
+
+function showLoading(title = 'Procesando', text = 'Guardando información...') {
+ const overlay = document.getElementById('loadingOverlay');
+ const titleEl = document.getElementById('loadingTitle');
+ const textEl = document.getElementById('loadingText');
+ if (!overlay || !titleEl || !textEl) return;
+ titleEl.textContent = title;
+ textEl.textContent = text;
+ overlay.classList.add('show');
+}
+
+function hideLoading() {
+ const overlay = document.getElementById('loadingOverlay');
+ if (overlay) overlay.classList.remove('show');
+}
+
 function guardarBorrador(){
  const datos={};
  ids.forEach(id=>{if(id!=="numeroInforme"&&id!=="duracion")datos[id]=document.getElementById(id).value;});
@@ -450,13 +492,14 @@ function cargarHistorial(){
    return response.json();
   })
   .then(data=>{
+   hideLoading();
    if(!data.ok)throw new Error(data.error||"No se pudo consultar el historial.");
    status.textContent=`${data.total} informe(s) encontrado(s).`;
    if(!data.records.length){results.className="history-empty";results.textContent="No hay informes que coincidan con la búsqueda.";return;}
    results.className="";
    results.innerHTML=`<table class="history-table"><thead><tr><th>Número</th><th>Fecha</th><th>Peaje</th><th>Novedad</th><th>Estado</th><th>Responsable</th><th>Evidencias</th></tr></thead><tbody>${data.records.map(record=>`<tr><td><strong>${escaparHtml(record.numero)}</strong></td><td>${escaparHtml(record.fecha)}<br><small>${escaparHtml(record.hora)}</small></td><td>${escaparHtml(record.peaje)}</td><td>${escaparHtml(record.novedad)}<br><small>${escaparHtml(record.ubicacion)}</small></td><td>${escaparHtml(record.estado)}</td><td>${escaparHtml(record.responsable)}</td><td>${record.fotos?record.fotos.split("\\n").filter(Boolean).map((link,index)=>`<a href="${escaparHtml(link)}" target="_blank" rel="noopener">Foto ${index+1}</a>`).join(" · "):"Sin fotos"}</td></tr>`).join("")}</tbody></table>`;
   })
-  .catch(error=>{status.textContent="No se pudo consultar el historial. Verifica la implementación de Apps Script y la URL del proyecto.";results.className="history-empty";results.textContent=error.message;});
+  .catch(error=>{hideLoading(); status.textContent="No se pudo consultar el historial. Verifica la implementación de Apps Script y la URL del proyecto.";results.className="history-empty";results.textContent=error.message;});
 }
 
 document.getElementById("historyQuery").addEventListener("keydown",event=>{
@@ -484,7 +527,8 @@ function guardarEnNube(enviarCorreo=false,onComplete=null,silencioso=false){
  const logoZima=document.querySelector(".sheet .header .zima")?.src||"";
  const payload={numeroInforme:document.getElementById("numeroInforme").value,fecha:document.getElementById("fecha").value,novedad:document.getElementById("novedad").value,fields,photos:fotos,reportHtml,logoAni,logoZima,sendEmail:enviarCorreo};
  const status=document.getElementById("cloudStatus");
- status.textContent=enviarCorreo?"Guardando y enviando informe...":"Guardando informe y evidencias...";
+ showLoading(enviarCorreo ? 'Enviando informe' : 'Guardando informe', enviarCorreo ? 'Se está enviando el registro a los correos configurados...' : 'Se está guardando la información y las evidencias...');
+ setStatus(enviarCorreo ? 'Guardando y enviando informe...' : 'Guardando informe y evidencias...', 'info');
  fetch(APPS_SCRIPT_URL,{
   method:"POST",
   mode:"cors",
@@ -504,12 +548,13 @@ function guardarEnNube(enviarCorreo=false,onComplete=null,silencioso=false){
    if(data && data.ok===false){
     throw new Error(data.error || "La respuesta del servidor indica un error.");
    }
-   status.textContent=enviarCorreo?"Informe guardado y enviado a los correos configurados.":"Guardado enviado correctamente a Google Sheets y Google Drive.";
+   hideLoading();
+   setStatus(enviarCorreo ? 'Informe guardado y enviado correctamente.' : 'Guardado correcto en Google Sheets y Drive.', 'success');
    if(enviarCorreo)limpiarFormularioSilencioso();
    if(onComplete)onComplete();
    if(!silencioso)openAppModal(enviarCorreo?"Informe enviado":"Informe guardado",enviarCorreo?"El informe fue guardado, enviado y el formulario quedó listo para el siguiente registro.":"El registro y sus evidencias fueron enviados a la nube.",null,"Entendido",false);
   })
-  .catch(error=>{status.textContent="No se pudo conectar con Apps Script. Revisa la URL /exec, la implementación y los permisos de Google.";if(onComplete)onComplete();if(!silencioso)openAppModal("Error de conexión",error.message||"Revisa la URL /exec, la implementación y los permisos de Apps Script.",null,"Entendido",false);});
+  .catch(error=>{hideLoading(); setStatus('No se pudo conectar con Apps Script. Revisa la URL y permisos.', 'error'); if(onComplete)onComplete(); if(!silencioso)openAppModal("Error de conexión",error.message||"Revisa la URL /exec, la implementación y los permisos de Apps Script.",null,"Entendido",false);});
 }
 
 function updatePhotos(){

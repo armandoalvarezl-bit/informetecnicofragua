@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inicio | Centro de Informes Técnicos</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #173f52;
+      --navy-2: #204d63;
+      --orange: #d96b2b;
+      --orange-soft: #f0a36c;
+      --bg: #edf2f4;
+      --card: #ffffff;
+      --line: #dfe7ea;
+      --text: #24373f;
+      --muted: #61757e;
+      --green: #237a5a;
+      --green-soft: #e8f7f0;
+      --blue-soft: #edf8ff;
+      --warning-soft: #fff7ef;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Barlow", Arial, sans-serif;
+      background: linear-gradient(180deg, #f6f8fa 0%, #edf2f4 100%);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: var(--navy);
+      color: #fff;
+      border-bottom: 4px solid var(--orange);
+      box-shadow: 0 6px 18px rgba(23, 63, 82, 0.18);
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 112px;
+      height: 54px;
+      background: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(6, 28, 38, 0.18);
+      padding: 8px;
+    }
+
+    .brand-mark img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-mark img + img { margin-left: 6px; }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 25px;
+      line-height: 1.1;
+      font-family: "Barlow Condensed", Arial, sans-serif;
+      letter-spacing: 0.4px;
+    }
+
+    .brand-copy span {
+      font-size: 11px;
+      color: #c8d7dc;
+      letter-spacing: 0.4px;
+    }
+
+    .page-shell {
+      max-width: 1200px;
+      margin: 36px auto;
+      padding: 0 20px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(241,247,249,0.92));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 38px 32px;
+      box-shadow: 0 10px 28px rgba(23, 63, 82, 0.08);
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-family: "Barlow Condensed", Arial, sans-serif;
+      line-height: 1;
+      letter-spacing: 0.6px;
+      color: var(--navy);
+    }
+
+    .hero p {
+      margin: 0 0 22px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 620px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(217, 107, 43, 0.24);
+    }
+
+    .btn-primary:hover {
+      background: #c75e1a;
+      border-color: #c75e1a;
+      color: #fff;
+    }
+
+    .btn-outline-primary {
+      background: #fff;
+      border-color: #9bb3bc;
+      color: var(--navy);
+    }
+
+    .btn-outline-primary:hover {
+      background: #f3f8fb;
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+    }
+
+    .hero-panel {
+      background: linear-gradient(180deg, #173f52 0%, #21516a 100%);
+      border-radius: 18px;
+      padding: 22px;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 16px 28px rgba(23, 63, 82, 0.22);
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+      margin-bottom: 18px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: #dfeff5;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 14px 14px 12px;
+      margin-bottom: 12px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 1.8rem;
+      font-family: "Barlow Condensed", Arial, sans-serif;
+      color: #fff;
+      margin-bottom: 2px;
+      line-height: 1;
+    }
+
+    .mini-card span {
+      font-size: 0.82rem;
+      color: #dfeaf0;
+    }
+
+    .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      color: #c8dce3;
+      font-size: 0.78rem;
+    }
+
+    .sync-status i { color: #8ed6b6; }
+
+    .sync-status.is-error i { color: #f0a36c; }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 20px rgba(23, 63, 82, 0.04);
+      padding: 22px 20px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 26px rgba(23, 63, 82, 0.08);
+    }
+
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--warning-soft);
+      color: var(--orange);
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.96rem;
+    }
+
+    .quick-links {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .link-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 8px 20px rgba(23, 63, 82, 0.04);
+      transition: all 0.18s ease;
+    }
+
+    .link-card:hover {
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 22px rgba(23, 63, 82, 0.08);
+    }
+
+    .link-card .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .link-card strong {
+      display: block;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .link-card span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .section-grid,
+      .quick-links {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .brand-copy strong {
+        font-size: 20px;
+      }
+
+      .hero {
+        padding: 22px 18px;
+      }
+
+      .page-shell {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+  </style>
+  <style>
+    .dashboard-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 24px; align-items: start; }
+    .dashboard-sidebar { position: sticky; top: 22px; background: var(--navy); border-radius: 16px; padding: 18px 14px; box-shadow: 0 12px 26px rgba(23,63,82,.16); }
+    .sidebar-label { margin: 0 10px 12px; color: #a9c4cc; font-size: .68rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+    .sidebar-nav { display: grid; gap: 5px; }
+    .sidebar-nav a { display: flex; align-items: center; gap: 10px; padding: 11px 12px; border-radius: 9px; color: #d9e8ec; text-decoration: none; font-size: .9rem; font-weight: 600; }
+    .sidebar-nav a:hover, .sidebar-nav a.active { background: #285d72; color: #fff; }
+    .sidebar-nav a.active { box-shadow: inset 3px 0 var(--orange); }
+    .sidebar-nav i { width: 18px; text-align: center; color: var(--orange-soft); }
+    .sidebar-divider { height: 1px; margin: 15px 10px; background: rgba(255,255,255,.15); }
+    .sidebar-note { margin: 18px 10px 2px; color: #b6ced5; font-size: .78rem; line-height: 1.5; }
+    .dashboard-content { min-width: 0; }
+    .dashboard-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 0 0 16px; }
+    .dashboard-heading h1 { margin: 0; color: var(--navy); font: 700 2rem/1 "Barlow Condensed", Arial, sans-serif; }
+    .dashboard-heading p { margin: 6px 0 0; color: var(--muted); font-size: .92rem; }
+    .dashboard-date { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; background: #fff; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); font-size: .8rem; white-space: nowrap; }
+    .dashboard-content .hero { border-radius: 14px; padding: 24px; }
+    .dashboard-content .hero { background: linear-gradient(125deg, #ffffff 0%, #f2f8fa 70%, #e4f0f3 100%); min-height: 330px; }
+    .dashboard-content .hero h1 { display: block; font-size: 2.45rem; margin-bottom: 10px; }
+    .dashboard-content .hero p { font-size: 1rem; }
+    .dashboard-content .section-grid, .dashboard-content .quick-links { margin-top: 18px; gap: 12px; }
+    .dashboard-content .feature-card, .dashboard-content .link-card { border-radius: 12px; padding: 16px; }
+    @media (max-width: 900px) { .dashboard-layout { grid-template-columns: 1fr; } .dashboard-sidebar { position: static; } .sidebar-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sidebar-divider, .sidebar-note { display: none; } }
+    @media (max-width: 640px) { .dashboard-heading { align-items: flex-start; flex-direction: column; } .sidebar-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .dashboard-content > .hero, .dashboard-content > .section-grid, .dashboard-content > .quick-links { display: none; }
+    .control-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+    .control-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 7px 18px rgba(23,63,82,.06); }
+    .control-card.kpi { grid-column: span 4; padding: 17px 18px; position: relative; overflow: hidden; }
+    .control-card.kpi::after { content: ""; position: absolute; right: -18px; bottom: -25px; width: 82px; height: 82px; border: 14px solid #edf4f6; border-radius: 50%; }
+    .kpi-label { color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; }
+    .kpi-value { display: block; margin: 8px 0 2px; color: var(--navy); font: 700 2.2rem/1 "Barlow Condensed", Arial, sans-serif; }
+    .kpi-caption { color: #81929a; font-size: .78rem; }
+    .control-card.actions { grid-column: span 7; padding: 20px; }
+    .control-card.health { grid-column: span 5; padding: 20px; }
+    .control-card.recent { grid-column: 1 / -1; padding: 20px; }
+    .card-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .card-heading h2 { margin: 0; color: var(--navy); font: 700 1.25rem/1 "Barlow Condensed", Arial, sans-serif; }
+    .card-heading span { color: var(--muted); font-size: .78rem; }
+    .action-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .action-tile { display: flex; align-items: center; gap: 11px; min-height: 64px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 9px; color: var(--navy); text-decoration: none; }
+    .action-tile:hover { border-color: var(--orange); background: #fffaf6; color: var(--navy); }
+    .action-tile i { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 8px; background: var(--warning-soft); color: var(--orange); font-size: 1rem; }
+    .action-tile strong { display: block; font-size: .88rem; }
+    .action-tile small { display: block; margin-top: 2px; color: var(--muted); font-size: .73rem; }
+    .health-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #edf1f2; font-size: .86rem; }
+    .health-row:last-child { border-bottom: 0; }
+    .health-state { display: inline-flex; align-items: center; gap: 6px; color: var(--green); font-weight: 700; font-size: .78rem; }
+    .health-state i { font-size: .65rem; }
+    .recent-placeholder { padding: 20px; border: 1px dashed #cbd8dd; border-radius: 8px; color: var(--muted); text-align: center; font-size: .85rem; }
+    @media (max-width: 900px) { .control-card.kpi, .control-card.actions, .control-card.health { grid-column: 1 / -1; } }
+    @media (max-width: 560px) { .action-list { grid-template-columns: 1fr; } }
+    .page-shell.dashboard-layout { max-width: none; width: 100%; margin: 0; padding: 28px 34px 44px 0; grid-template-columns: 230px minmax(0, 1fr); gap: 30px; }
+    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
+    .page-shell.dashboard-layout { padding-top: 116px; }
+    .dashboard-sidebar { position: fixed; left: 0; top: 88px; width: 230px; height: calc(100vh - 88px); min-height: 0; overflow-y: auto; border-radius: 0 16px 16px 0; padding: 22px 14px; z-index: 40; }
+    .dashboard-content { grid-column: 2; width: min(1120px, 100%); max-width: calc(100vw - 300px); margin: 0 auto; justify-self: center; }
+    .dashboard-heading { min-height: 52px; }
+    .control-grid { width: 100%; }
+    .control-card { min-width: 0; }
+    @media (max-width: 900px) {
+      .page-shell.dashboard-layout { padding: 106px 16px 36px; grid-template-columns: 1fr; gap: 18px; }
+      .dashboard-sidebar { position: static; width: auto; height: auto; min-height: 0; border-radius: 14px; }
+      .dashboard-content { grid-column: 1; width: 100%; max-width: none; }
+    }
+    html { overflow-x: hidden; }
+    .recent-list { display: grid; gap: 8px; }
+    .recent-item { display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid #e5ecee; border-radius: 8px; }
+    .recent-number { color: var(--orange); font: 700 1rem/1 "Barlow Condensed", Arial, sans-serif; }
+    .recent-item strong { display: block; overflow: hidden; color: var(--navy); font-size: .86rem; text-overflow: ellipsis; white-space: nowrap; }
+    .recent-item small { display: block; margin-top: 3px; color: var(--muted); font-size: .74rem; }
+    .recent-state { padding: 4px 8px; border-radius: 999px; background: #e8f7f0; color: var(--green); font-size: .7rem; font-weight: 700; white-space: nowrap; }
+    @media (min-width: 901px) and (max-width: 1100px) { .page-shell.dashboard-layout { grid-template-columns: 200px minmax(0, 1fr); gap: 20px; } .dashboard-sidebar { padding-left: 10px; padding-right: 10px; } .sidebar-nav a { font-size: .82rem; } }
+    @media (max-width: 640px) { .topbar-inner { padding: 12px 16px; } .brand { width: 100%; gap: 10px; } .brand-mark { width: 92px; height: 48px; } .brand-copy { min-width: 0; } .brand-copy strong { font-size: 18px; } .brand-copy span { display: block; max-width: 220px; line-height: 1.25; } .dashboard-heading h1 { font-size: 1.85rem; } .control-card.actions, .control-card.health, .control-card.recent { padding: 15px; } .card-heading { align-items: flex-start; } .recent-item { grid-template-columns: 34px minmax(0, 1fr); } .recent-state { grid-column: 2; justify-self: start; } }
+    @media (max-width: 380px) { .page-shell.dashboard-layout { padding-left: 10px; padding-right: 10px; } .brand-mark { width: 78px; } .brand-copy strong { font-size: 16px; } .sidebar-nav a { padding-left: 8px; padding-right: 8px; font-size: .78rem; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="img/logo-ani.png" alt="ANI"><img src="img/logo-zima.png" alt="Zima">
+        </div>
+        <div class="brand-copy">
+          <strong>Centro de informes técnicos</strong>
+          <span>ANI · Zima Seguridad | Gestión de mantenimiento</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell dashboard-layout">
+    <aside class="dashboard-sidebar" aria-label="Navegación principal">
+      <p class="sidebar-label">Panel de control</p>
+      <nav class="sidebar-nav">
+        <a class="active" href="home.html"><i class="bi bi-grid-1x2-fill"></i><span>Resumen general</span></a>
+        <a href="index.html"><i class="bi bi-file-earmark-plus-fill"></i><span>Nuevo informe</span></a>
+        <a href="historial.html"><i class="bi bi-clock-history"></i><span>Historial</span></a>
+        <a href="correos.html"><i class="bi bi-envelope-check-fill"></i><span>Correos enviados</span></a>
+      </nav>
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-note"><i class="bi bi-info-circle me-1"></i> La información se actualiza desde el registro central del sistema.</p>
+    </aside>
+
+    <div class="dashboard-content">
+      <div class="dashboard-heading">
+        <div><h1>Centro de control</h1><p>Supervisión operativa de informes técnicos y mantenimiento.</p></div>
+        <div class="dashboard-date"><i class="bi bi-calendar3"></i><span id="todayLabel">Cargando fecha...</span></div>
+      </div>
+      <section class="control-grid" aria-label="Panel de control operativo">
+        <article class="control-card kpi"><span class="kpi-label">Informes registrados</span><strong class="kpi-value" id="controlReportCount">--</strong><span class="kpi-caption">Total en el registro central</span></article>
+        <article class="control-card kpi"><span class="kpi-label">Envíos recientes</span><strong class="kpi-value" id="controlSentCount">--</strong><span class="kpi-caption">Últimos 30 días</span></article>
+        <article class="control-card kpi"><span class="kpi-label">Atención pendiente</span><strong class="kpi-value" id="controlPendingCount">--</strong><span class="kpi-caption">Requieren seguimiento</span></article>
+        <article class="control-card actions">
+          <div class="card-heading"><h2>Acciones operativas</h2><span>Acceso directo</span></div>
+          <div class="action-list">
+            <a class="action-tile" href="index.html"><i class="bi bi-file-earmark-plus-fill"></i><span><strong>Crear informe</strong><small>Registrar una intervención</small></span></a>
+            <a class="action-tile" href="historial.html"><i class="bi bi-search"></i><span><strong>Consultar historial</strong><small>Buscar registros guardados</small></span></a>
+            <a class="action-tile" href="correos.html"><i class="bi bi-envelope-check-fill"></i><span><strong>Revisar envíos</strong><small>Ver correos enviados</small></span></a>
+            <a class="action-tile" href="index.html#editor"><i class="bi bi-pencil-square"></i><span><strong>Continuar registro</strong><small>Volver al formulario técnico</small></span></a>
+          </div>
+        </article>
+        <article class="control-card health">
+          <div class="card-heading"><h2>Estado del sistema</h2><span>Verificación automática</span></div>
+          <div class="health-row"><span>Registro de informes</span><span class="health-state"><i class="bi bi-circle-fill"></i>Operativo</span></div>
+          <div class="health-row"><span>Almacenamiento en nube</span><span class="health-state"><i class="bi bi-circle-fill"></i>Disponible</span></div>
+          <div class="health-row"><span>Sincronización de datos</span><span class="health-state" id="controlSyncState"><i class="bi bi-arrow-repeat"></i>Consultando</span></div>
+        </article>
+        <article class="control-card recent">
+          <div class="card-heading"><h2>Actividad reciente</h2><a class="btn btn-outline-primary btn-sm" href="historial.html"><i class="bi bi-arrow-up-right-square me-1"></i>Ver todo</a></div>
+          <div class="recent-placeholder" id="recentActivity">Cargando actividad del registro...</div>
+        </article>
+      </section>
+    <section class="hero">
+      <div>
+        <h1>Operación técnica</h1>
+        <p>
+          Gestiona reportes técnicos, intervenciones, evidencias y seguimiento del mantenimiento
+          del peaje de forma rápida, ordenada y profesional.
+        </p>
+
+        <div class="hero-actions">
+          <a href="index.html" class="btn btn-primary">
+            <i class="bi bi-file-earmark-text me-2"></i>Nuevo informe
+          </a>
+          <a href="historial.html" class="btn btn-outline-primary">
+            <i class="bi bi-clock-history me-2"></i>Ver historial
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <span><i class="bi bi-check-circle-fill text-success"></i> Registro centralizado</span>
+          <span><i class="bi bi-shield-check text-primary"></i> Seguimiento fiable</span>
+          <span><i class="bi bi-cloud-arrow-up-fill text-warning"></i> Guardado en nube</span>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Resumen general del sistema">
+        <div class="panel-title">
+          <span>Resumen</span>
+          <i class="bi bi-graph-up-arrow"></i>
+        </div>
+
+        <div class="mini-card">
+          <strong id="reportCount">--</strong>
+          <span>Informes registrados</span>
+        </div>
+
+        <div class="mini-card">
+          <strong id="sentCount">--</strong>
+          <span>Envíos del último mes</span>
+        </div>
+
+        <div class="mini-card">
+          <strong id="pendingCount">--</strong>
+          <span>Reportes pendientes</span>
+        </div>
+
+        <div class="sync-status" id="syncStatus" role="status">
+          <i class="bi bi-arrow-repeat"></i><span>Sincronizando datos...</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section-grid">
+      <article class="feature-card">
+        <div class="feature-icon"><i class="bi bi-pencil-square"></i></div>
+        <h3>Creación de informes</h3>
+        <p>Genera intervenciones técnicas con datos, diagnóstico, actividades, materiales y evidencia fotográfica.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon"><i class="bi bi-search"></i></div>
+        <h3>Consultas rápidas</h3>
+        <p>Consulta informes anteriores por número, fecha, peaje, novedad o palabras clave de forma práctica.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon"><i class="bi bi-envelope-check"></i></div>
+        <h3>Entrega y seguimiento</h3>
+        <p>Envía el documento y mantén un control de correos, respaldos y trazabilidad del proceso.</p>
+      </article>
+    </section>
+
+    <section class="quick-links">
+      <a class="link-card" href="index.html">
+        <div class="kicker"><i class="bi bi-file-earmark-text-fill"></i> Módulo</div>
+        <strong>Nuevo informe</strong>
+        <span>Accede al formulario principal para registrar la intervención y preparar la documentación final.</span>
+      </a>
+
+      <a class="link-card" href="historial.html">
+        <div class="kicker"><i class="bi bi-clock-history"></i> Registro</div>
+        <strong>Historial</strong>
+        <span>Revisa los informes almacenados y consulta el historial para continuidad operativa.</span>
+      </a>
+
+      <a class="link-card" href="correos.html">
+        <div class="kicker"><i class="bi bi-envelope-check"></i> Correos</div>
+        <strong>Correos enviados</strong>
+        <span>Consulta los envíos realizados y la trazabilidad de los mensajes generados por el sistema.</span>
+      </a>
+    </section>
+    </div>
+  </main>
+
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyq0PyY5yHN4P4tKdOafIfIiCPFarPeD7F3PwQXu1nKcMCvGClhhDbVnseYA2s0v5ZsVw/exec';
+
+    function setHomeValue(id, value) {
+      const element = document.getElementById(id);
+      if (element) element.textContent = String(value).padStart(2, '0');
+    }
+
+    function parseDate(value) {
+      if (!value) return null;
+      const parsed = new Date(value);
+      if (!Number.isNaN(parsed.getTime())) return parsed;
+      const parts = String(value).match(/(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})/);
+      if (!parts) return null;
+      const year = parts[3].length === 2 ? '20' + parts[3] : parts[3];
+      return new Date(Number(year), Number(parts[2]) - 1, Number(parts[1]));
+    }
+
+    function escapeHomeValue(value) {
+      return String(value || '').replace(/[&<>'"]/g, character => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;'
+      }[character]));
+    }
+
+    document.getElementById('todayLabel').textContent = new Intl.DateTimeFormat('es-CO', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }).format(new Date());
+
+    async function loadHomeSummary() {
+      const status = document.getElementById('syncStatus');
+      try {
+        const [historyResponse, sentResponse] = await Promise.all([
+          fetch(APPS_SCRIPT_URL + '?action=history&q=', { mode: 'cors', cache: 'no-store' }),
+          fetch(APPS_SCRIPT_URL + '?action=sent&q=', { mode: 'cors', cache: 'no-store' })
+        ]);
+        if (!historyResponse.ok || !sentResponse.ok) throw new Error('Servicio no disponible');
+
+        const history = await historyResponse.json();
+        const sent = await sentResponse.json();
+        const records = Array.isArray(history.records) ? history.records : [];
+        const sentRecords = Array.isArray(sent.records) ? sent.records : [];
+        const monthAgo = new Date();
+        monthAgo.setDate(monthAgo.getDate() - 30);
+        const recentSent = sentRecords.filter(record => {
+          const date = parseDate(record.fecha);
+          return date && date >= monthAgo;
+        });
+        const pending = records.filter(record => {
+          const state = String(record.estado || '').toUpperCase();
+          return !state || !state.includes('OPERATIVO');
+        });
+
+        setHomeValue('reportCount', history.total ?? records.length);
+        setHomeValue('sentCount', recentSent.length);
+        setHomeValue('pendingCount', pending.length);
+        setHomeValue('controlReportCount', history.total ?? records.length);
+        setHomeValue('controlSentCount', recentSent.length);
+        setHomeValue('controlPendingCount', pending.length);
+        const syncState = document.getElementById('controlSyncState');
+        if (syncState) syncState.innerHTML = '<i class="bi bi-circle-fill"></i>Actualizada';
+        const recentActivity = document.getElementById('recentActivity');
+        if (recentActivity) {
+          recentActivity.innerHTML = records.length ? '<div class="recent-list">' + records.slice(0, 4).map(record => '<div class="recent-item"><span class="recent-number">#' + escapeHomeValue(record.numero || '--') + '</span><span><strong>' + escapeHomeValue(record.novedad || 'Informe técnico') + '</strong><small>' + escapeHomeValue(record.fecha || 'Fecha no disponible') + ' · ' + escapeHomeValue(record.peaje || 'Peaje no especificado') + '</small></span><span class="recent-state">' + escapeHomeValue(record.estado || 'Pendiente') + '</span></div>').join('') + '</div>' : 'No hay informes registrados todavía.';
+        }
+        status.classList.remove('is-error');
+        status.innerHTML = '<i class="bi bi-check-circle-fill"></i><span>Datos sincronizados ahora</span>';
+      } catch (error) {
+        setHomeValue('reportCount', 0);
+        setHomeValue('sentCount', 0);
+        setHomeValue('pendingCount', 0);
+        setHomeValue('controlReportCount', 0);
+        setHomeValue('controlSentCount', 0);
+        setHomeValue('controlPendingCount', 0);
+        const syncState = document.getElementById('controlSyncState');
+        if (syncState) { syncState.className = 'health-state'; syncState.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i>Sin conexión'; }
+        const recentActivity = document.getElementById('recentActivity');
+        if (recentActivity) recentActivity.textContent = 'No fue posible consultar la actividad del registro.';
+        status.classList.add('is-error');
+        status.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i><span>No se pudo sincronizar el resumen</span>';
+      }
+    }
+
+    loadHomeSummary();
+  </script>
+</body>
+</html>
