@@ -37,7 +37,7 @@ Pega la URL entre las comillas. Luego abre de nuevo `index.html`.
 - El PDF enviado por correo usa las hojas completas renderizadas por el formulario, conservando el mismo diseno, logos, fotos y paginacion del informe original.
 - Antes de convertir a PDF, Apps Script convierte las imagenes incrustadas en recursos de Drive para evitar que el conversor las omita.
 - Si un PDF ya fue generado antes de esta correccion, debe regenerarse desde `historial.html`; los archivos descargados anteriormente no se modifican por si solos.
-- El boton **Enviar informe** genera un PDF en Apps Script y lo envia automaticamente a `peajefragua@zimaseguridad.com.co` y `cord.recaudo1@zimaseguridad.com.co`.
+- El boton **Enviar informe** genera un PDF en Apps Script y lo envia automaticamente a `peajefragua@zimaseguridad.com.co` y `c.recaudo3@zimaseguridad.com.co`.
 - La pagina `historial.html` consulta los registros guardados y permite buscar por numero, fecha, peaje o novedad. Los enlaces de fotos abren las evidencias almacenadas en Drive.
 - La pagina `correos.html` consulta la pestaña `Correos enviados` y muestra el seguimiento de cada correo remitido, su estado y el PDF.
 - El formulario conserva tambien el borrador local y permite exportar un respaldo JSON.

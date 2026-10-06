@@ -66,10 +66,50 @@ h2.sec{font-size:12px;color:#263238;margin:13px 0 7px}h2.sec:before{content:"";d
 </style>
 <style media="print">
 @page{size:A4;margin:0}
-body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;padding:0;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .toolbar,.editor,.history-panel{display:none!important}
-.sheet{margin:0;border:0;box-shadow:none;width:210mm;height:297mm;min-height:0;padding:11mm 13mm 15mm;page-break-after:always;break-after:page;overflow:visible;zoom:.92}
-.sheet:last-of-type{page-break-after:auto;break-after:auto}
+
+/* Impresión multipágina:
+   el contenido ya no queda encerrado en una sola hoja de 297 mm.
+   El navegador puede continuar automáticamente en tantas páginas A4
+   como sean necesarias, sin recortar texto, tablas o evidencias. */
+.sheet{
+  margin:0;
+  border:0;
+  box-shadow:none;
+  width:210mm;
+  min-height:297mm;
+  height:auto!important;
+  padding:11mm 13mm 15mm;
+  page-break-after:always;
+  break-after:page;
+  overflow:visible!important;
+  zoom:.92;
+  position:relative;
+}
+
+/* El segundo bloque del informe comienza en una página nueva,
+   conservando la estructura original de 2 secciones. */
+.sheet:last-of-type{
+  page-break-after:auto;
+  break-after:auto;
+}
+
+/* Evita cortes internos poco naturales cuando sea posible. */
+.sheet .header,
+.sheet .title,
+.sheet .info,
+.sheet h2.sec,
+.sheet .steps,
+.sheet .step,
+.sheet .result,
+.sheet .recommend,
+.sheet .signature,
+.sheet .photo-frame{
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+
 .sheet .header{padding-bottom:7px}
 .sheet .title{margin-top:11px;padding-bottom:9px}
 .sheet .title h1{font-size:23px}
@@ -83,6 +123,25 @@ body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .sheet .recommend{padding:7px 9px}
 .sheet .signature{margin-top:8px}
 .sheet .photo-frame img{height:36mm}
+
+/* Las evidencias se mantienen completas y pueden continuar en nuevas páginas. */
+#photosContainer{
+  break-inside:auto;
+  page-break-inside:auto;
+}
+.photo-frame{
+  break-inside:avoid!important;
+  page-break-inside:avoid!important;
+}
+
+/* El pie no fuerza una altura artificial ni recorta el contenido. */
+.sheet .footer{
+  position:relative;
+  left:auto;
+  right:auto;
+  bottom:auto;
+  margin-top:10mm;
+}
 </style>
 </head>
 <body>
@@ -241,11 +300,21 @@ body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 </section>
 
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxi-LzjoZNeLU6NLOOdzMjBPbYABfQG7uDOQLk1MllqRauuDR275YuWjXoV5uA36bZPUQ/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFD8MsHS3c9puq8wzFO8neTPd9oEB6Qe9D3hB7J_1YKSwIjnTdH9TpFC2ZxocbYotNMQ/exec';
 const ids=["numeroInforme","fecha","horaInicio","hora","duracion","ubicacion","novedad","tipoActividad","areaSistema","elementoIntervenido","lugarEvento","estado","procedencia","autorizacion","evidenciaFecha","descripcion","actividad","resumen","materiales","diagnostico","verificaciones","resultado","recomendacion","responsable","supervisor","paso1_titulo","paso1_desc","paso2_titulo","paso2_desc","paso3_titulo","paso3_desc","paso4_titulo","paso4_desc"];
 const camposRequeridos=["fecha","horaInicio","hora","ubicacion","novedad","tipoActividad","areaSistema","elementoIntervenido","lugarEvento","estado","evidenciaFecha","descripcion","actividad","resumen","resultado","recomendacion","responsable","supervisor"];
 let fotos=[];
 let modalAction=null;
+
+function storageGet(key){
+ try{return localStorage.getItem(key);}catch(error){return null;}
+}
+function storageSet(key,value){
+ try{localStorage.setItem(key,value);}catch(error){}
+}
+function storageRemove(key){
+ try{localStorage.removeItem(key);}catch(error){}
+}
 
 function openAppModal(title,message,action=null,confirmText="Confirmar",showCancel=true){
  const modal=document.getElementById("appModal");
@@ -286,7 +355,7 @@ function actualizarElementos(){
  const area=document.getElementById("areaSistema").value;
  const select=document.getElementById("elementoIntervenido");
  select.innerHTML="";
- if(!area){
+ if(!area || !elementosPorArea[area]){
   select.disabled=true;
   select.add(new Option("Primero seleccione un área o sistema",""));
   return;
@@ -382,9 +451,15 @@ function update(){
   inicializarNumero();
  }
  actualizarDuracion();
- ids.forEach(id=>document.querySelectorAll('[data-bind="'+id+'"]').forEach(el=>el.textContent=displayValue(id)));
- document.getElementById("firma1").textContent=document.getElementById("responsable").value||"Nombre y firma";
- document.getElementById("firma2").textContent=document.getElementById("supervisor").value||"Nombre y firma";
+ ids.forEach(id=>{
+  const campo=document.getElementById(id);
+  if(!campo)return;
+  document.querySelectorAll('[data-bind="'+id+'"]').forEach(el=>el.textContent=displayValue(id));
+ });
+ const firma1=document.getElementById("firma1");
+ const firma2=document.getElementById("firma2");
+ if(firma1)firma1.textContent=document.getElementById("responsable").value||"Nombre y firma";
+ if(firma2)firma2.textContent=document.getElementById("supervisor").value||"Nombre y firma";
 }
 
 function setStatus(message, type = 'info') {
@@ -412,21 +487,25 @@ function hideLoading() {
 function guardarBorrador(){
  const datos={};
  ids.forEach(id=>{if(id!=="numeroInforme"&&id!=="duracion")datos[id]=document.getElementById(id).value;});
- localStorage.setItem("informe_borrador",JSON.stringify(datos));
+ storageSet("informe_borrador",JSON.stringify(datos));
 }
 
 function cargarBorrador(){
  try{
-  const datos=JSON.parse(localStorage.getItem("informe_borrador")||"null");
+  const datos=JSON.parse(storageGet("informe_borrador")||"null");
   if(!datos)return;
   Object.entries(datos).forEach(([id,value])=>{const campo=document.getElementById(id);if(campo)campo.value=value;});
   actualizarElementos();
- }catch(error){localStorage.removeItem("informe_borrador");}
+  }catch(error){
+   storageRemove("informe_borrador");
+   ids.forEach(id=>{const campo=document.getElementById(id);if(campo&&id!=="numeroInforme"&&id!=="duracion")campo.value="";});
+   actualizarElementos();
+  }
 }
 
 function exportarBorrador(){
  guardarBorrador();
- const datos={version:1,creado:new Date().toISOString(),campos:JSON.parse(localStorage.getItem("informe_borrador"))};
+ const datos={version:1,creado:new Date().toISOString(),campos:JSON.parse(storageGet("informe_borrador")||"{}")};
  const enlace=document.createElement("a");
  enlace.href=URL.createObjectURL(new Blob([JSON.stringify(datos,null,2)],{type:"application/json"}));
  enlace.download=`respaldo_informe_${document.getElementById("numeroInforme").value||"nuevo"}.json`;
@@ -453,8 +532,12 @@ function importarBorrador(event){
 function validarCampos(){
  let faltantes=0;
  camposRequeridos.forEach(id=>{
-  const campo=document.getElementById(id);const field=campo.closest(".field");
-  const invalido=!campo.value.trim();field.classList.toggle("invalid",invalido);if(invalido)faltantes++;
+   const campo=document.getElementById(id);
+   if(!campo)return;
+   const field=campo.closest(".field");
+   const invalido=!campo.value.trim();
+   if(field)field.classList.toggle("invalid",invalido);
+   if(invalido)faltantes++;
  });
  return faltantes;
 }
@@ -559,6 +642,7 @@ function guardarEnNube(enviarCorreo=false,onComplete=null,silencioso=false){
 
 function updatePhotos(){
  const container=document.getElementById("photosContainer");
+ if(!container) return;
  container.innerHTML="";
  container.style.display=fotos.length?"grid":"none";
  fotos.forEach((foto,idx)=>{
@@ -575,12 +659,16 @@ function updatePhotos(){
  });
 }
 
-ids.forEach(id=>document.getElementById(id).addEventListener("input",()=>{
+ids.forEach(id=>{
+ const campo=document.getElementById(id);
+ if(!campo)return;
+ campo.addEventListener("input",()=>{
  update();
  guardarBorrador();
- const field=document.getElementById(id).closest(".field");
+ const field=campo.closest(".field");
  if(field)field.classList.remove("invalid");
-}));
+ });
+});
 document.getElementById("diagnosticarBtn").addEventListener("click",generarDiagnostico);
 document.getElementById("redactarBtn").addEventListener("click",redactarNovedades);
 document.getElementById("areaSistema").addEventListener("change",()=>{actualizarElementos();update();});
@@ -648,7 +736,7 @@ function imprimirConConsecutivo(){
   return;
  }
  const contador=parseInt(document.getElementById("numeroInforme").value)||1;
- localStorage.setItem("informe_consecutivo",contador);
+ storageSet("informe_consecutivo",contador);
  const peaje=document.getElementById("peaje").value.replace("Peaje ","");
  document.title=`Informe_${peaje}_${String(contador).padStart(3,"0")}`;
  guardarEnNube(false,()=>setTimeout(()=>window.print(),100),true);
@@ -660,7 +748,7 @@ function enviarInforme(){
   openAppModal("Faltan datos por completar",`Completa los campos obligatorios antes de enviar el informe (${faltantes} pendientes).`,null,"Entendido",false);
   return;
  }
- openAppModal("Enviar informe automáticamente","Apps Script guardará el registro, almacenará las evidencias y enviará el PDF a peajefragua@zimaseguridad.com.co y cord.recaudo1@zimaseguridad.com.co. ¿Deseas continuar?",()=>guardarEnNube(true),"Enviar ahora");
+ openAppModal("Enviar informe automáticamente","Apps Script guardará el registro, almacenará las evidencias y enviará el PDF a peajefragua@zimaseguridad.com.co y c.recaudo3@zimaseguridad.com.co. ¿Deseas continuar?",()=>guardarEnNube(true),"Enviar ahora");
 }
 
 function resetForm(){
@@ -679,7 +767,7 @@ function limpiarFormularioSilencioso(){
  document.getElementById("imagePreviewContainer").innerHTML="";
  updatePhotos();
  actualizarPeaje();
- localStorage.removeItem("informe_borrador");
+ storageRemove("informe_borrador");
 }
 
 document.getElementById("paso1_titulo").value="Retiro";
@@ -690,9 +778,9 @@ document.getElementById("paso3_titulo").value="Autorización";
 document.getElementById("paso3_desc").value="El traslado y utilización del elemento se realizaron previa autorización.";
 document.getElementById("paso4_titulo").value="Verificación";
 document.getElementById("paso4_desc").value="Se verificó el correcto funcionamiento del sistema intervenido.";
-const teniaBorrador=Boolean(localStorage.getItem("informe_borrador"));
+const teniaBorrador=Boolean(storageGet("informe_borrador"));
 function inicializarNumero(){
- const guardado=parseInt(localStorage.getItem("informe_consecutivo"),10);
+ const guardado=parseInt(storageGet("informe_consecutivo"),10);
  const siguiente=Number.isFinite(guardado)?guardado+1:1;
  document.getElementById("numeroInforme").value=String(siguiente).padStart(3,"0");
 }
@@ -704,6 +792,14 @@ function crearLogoSvg(label){
    </svg>
  `)}`;
 }
+function asegurarLogosDocumento(){
+ document.querySelectorAll(".sheet .header img").forEach(img=>{
+  const label=img.classList.contains("zima")?"ZIMA":"ANI";
+  img.alt=label;
+  img.addEventListener("error",()=>{img.src=crearLogoSvg(label);});
+  if(!img.getAttribute("src"))img.src=crearLogoSvg(label);
+ });
+}
 function cargarLogosToolbar(){
  const toolbarLogos=document.getElementById("toolbarLogos");
  if(!toolbarLogos) return;
@@ -713,10 +809,12 @@ function cargarLogosToolbar(){
  marcas.forEach(marca=>{
    const slot=document.createElement("span");
    slot.className="toolbar-logo-slot";
+   slot.classList.add("is-fallback");
    const img=document.createElement("img");
    img.className=marca.className;
    img.alt=marca.label;
    img.src=marca.src || crearLogoSvg(marca.label);
+   img.addEventListener("load",()=>slot.classList.remove("is-fallback"));
    img.addEventListener("error",()=>{
      img.src=crearLogoSvg(marca.label);
      slot.classList.add("is-fallback");
@@ -729,11 +827,17 @@ function cargarLogosToolbar(){
    toolbarLogos.appendChild(slot);
  });
 }
-inicializarNumero();
-cargarBorrador();
-if(!teniaBorrador)actualizarPeaje();
-update();
-cargarLogosToolbar();
+try{
+ inicializarNumero();
+ asegurarLogosDocumento();
+ cargarBorrador();
+ if(!teniaBorrador)actualizarPeaje();
+ update();
+ cargarLogosToolbar();
+}catch(error){
+ console.error(error);
+ setStatus("El formulario cargÃ³ con una advertencia. Puedes limpiar el borrador e intentar de nuevo.", "error");
+}
 </script>
 </body>
 </html>

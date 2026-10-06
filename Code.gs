@@ -4,7 +4,7 @@ const CONFIG = {
   driveFolderName: 'Evidencias informes tecnicos',
   reportFolderName: 'Informes PDF tecnicos',
   emailLogSheetName: 'Correos enviados',
-  recipients: 'peajefragua@zimaseguridad.com.co,cord.recaudo1@zimaseguridad.com.co',
+  recipients: 'peajefragua@zimaseguridad.com.co,c.recaudo3@zimaseguridad.com.co',
   headers: [
     'Fecha de registro', 'Numero de informe', 'Peaje', 'Fecha', 'Hora inicio',
     'Hora final', 'Duracion', 'Ubicacion', 'Novedad', 'Tipo de actividad',
