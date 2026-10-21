@@ -1,4 +1,4 @@
-# Conexion con Google Apps Script
+﻿# Conexion con Google Apps Script
 
 ## 1. Crear el receptor
 
@@ -20,7 +20,7 @@ El codigo configura automaticamente la hoja `Registros`: encabezado con formato,
 
 ## 3. Pegar la URL en el formulario
 
-En `index.html`, verifica esta linea:
+En `informe.js`, verifica esta linea:
 
 ```js
 const APPS_SCRIPT_URL = 'URL_DEL_DESPLIEGUE';
@@ -55,3 +55,30 @@ La primera ejecucion puede pedir autorizacion para Google Sheets, Google Drive y
 ## Seguridad y permisos
 
 La URL del despliegue permite recibir datos desde el formulario. No incluyas contrasenas, tokens ni claves privadas en `index.html`. Para una organizacion con datos restringidos, configura el acceso del despliegue con las politicas de Google Workspace y limita quien puede abrir el formulario.
+
+
+## Actualizar el sistema existente (impresión y reenvío)
+
+1. En el proyecto de Google Apps Script existente, sustituye el contenido de Code.gs por el archivo Code.gs de esta carpeta y guarda.
+2. Abre Implementar > Administrar implementaciones.
+3. Edita la implementación web actual con el lápiz, selecciona Nueva versión y pulsa Implementar. Conserva la URL /exec existente; no es necesario crear otro despliegue.
+4. Conserva reenvio.js junto a historial.html y correos.html. Recarga las páginas con Ctrl + F5.
+5. Busca un informe y pulsa Reenviar. El correo sale solo al confirmar. La impresión del formulario funciona localmente y no necesita guardar ni enviar primero.
+
+Hasta actualizar la implementación de Google, los botones nuevos no podrán ejecutar el reenvío real. El formulario informa de la falta de activación si el receptor antiguo rechaza esa operación.
+
+## PDF idéntico en impresión y correo
+
+El formulario utiliza pdf-informe.js y las bibliotecas locales de vendor. Conserva esa carpeta y los archivos JavaScript junto a index.html.
+
+El nuevo Code.gs acepta el PDF ya generado, lo guarda y adjunta sin volver a convertir HTML. Para activarlo: reemplaza Code.gs en Google, entra en Implementar > Administrar implementaciones > Editar, selecciona Nueva versión e implementa conservando la URL actual. Hasta esa actualización, el formulario detiene el envío para evitar adjuntar un PDF con el formato anterior.
+
+Imprimir / Guardar PDF abre el PDF final en otra pestaña. Desde el visor puedes imprimirlo o guardarlo. Si no se modifica el informe, Enviar informe reutiliza ese mismo archivo. Los reenvíos conservan el PDF almacenado.
+
+## Vista previa correcta de informes antiguos
+
+Publica el Code.gs actualizado como nueva versión de la implementación existente. Conserva visor-informe.js e historico-informe.js junto al formulario y recarga con Ctrl + F5.
+
+Abre Historial > Vista previa / Imprimir. Si el registro usa el formato anterior, la vista recupera sus datos y evidencias y muestra Guardar PDF corregido. Pulsa ese botón para actualizar el archivo utilizado por el historial y los próximos reenvíos; conserva el número del informe. Imprime desde el botón Imprimir del nuevo visor.
+
+Una pestaña que ya estuviera abierta con un enlace de drive.google.com sigue mostrando el PDF antiguo. La nueva vista se abre desde los enlaces actualizados del sistema.

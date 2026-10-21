@@ -452,6 +452,37 @@
     @media (min-width: 901px) and (max-width: 1100px) { .page-shell.dashboard-layout { grid-template-columns: 200px minmax(0, 1fr); gap: 20px; } .dashboard-sidebar { padding-left: 10px; padding-right: 10px; } .sidebar-nav a { font-size: .82rem; } }
     @media (max-width: 640px) { .topbar-inner { padding: 12px 16px; } .brand { width: 100%; gap: 10px; } .brand-mark { width: 92px; height: 48px; } .brand-copy { min-width: 0; } .brand-copy strong { font-size: 18px; } .brand-copy span { display: block; max-width: 220px; line-height: 1.25; } .dashboard-heading h1 { font-size: 1.85rem; } .control-card.actions, .control-card.health, .control-card.recent { padding: 15px; } .card-heading { align-items: flex-start; } .recent-item { grid-template-columns: 34px minmax(0, 1fr); } .recent-state { grid-column: 2; justify-self: start; } }
     @media (max-width: 380px) { .page-shell.dashboard-layout { padding-left: 10px; padding-right: 10px; } .brand-mark { width: 78px; } .brand-copy strong { font-size: 16px; } .sidebar-nav a { padding-left: 8px; padding-right: 8px; font-size: .78rem; } }
+    /* Professional dashboard refresh */
+    body { background: #eef3f5; }
+    .topbar { background: #102f3d; border-bottom-color: #c85f24; box-shadow: 0 8px 22px rgba(16,47,61,.22); }
+    .topbar-inner { max-width: 1280px; padding: 14px 28px; }
+    .brand-mark { border-radius: 6px; box-shadow: 0 5px 14px rgba(0,0,0,.2); }
+    .brand-copy strong { letter-spacing: 0; }
+    .brand-copy span { color: #c4d6dc; }
+    .dashboard-sidebar { background: #123747; border-right: 1px solid rgba(255,255,255,.1); border-radius: 0 8px 8px 0; box-shadow: 0 14px 32px rgba(16,47,61,.16); }
+    .sidebar-label { color: #abc6ce; }
+    .sidebar-nav a { border-radius: 5px; color: #d9e7eb; }
+    .sidebar-nav a:hover, .sidebar-nav a.active { background: #25596c; }
+    .sidebar-nav a.active { box-shadow: inset 3px 0 #c85f24; }
+    .dashboard-heading h1 { color: #133746; letter-spacing: 0; }
+    .dashboard-date { border-radius: 6px; }
+    .control-grid { gap: 16px; }
+    .control-card { border-color: #d6e1e5; border-radius: 8px; box-shadow: 0 14px 34px rgba(31,74,88,.09); }
+    .control-card.kpi::after { border-color: #eef5f7; }
+    .kpi-value, .card-heading h2 { color: #133746; letter-spacing: 0; }
+    .action-tile { border-radius: 6px; background: #fff; }
+    .action-tile:hover { border-color: #c85f24; background: #fff8f2; }
+    .action-tile i { border-radius: 5px; background: #fff1e7; color: #c85f24; }
+    .health-row { border-bottom-color: #edf2f4; }
+    .recent-item { border-color: #dce5e8; border-radius: 6px; background: #fff; }
+    .recent-item:hover { background: #f8fbfc; }
+    .recent-state { border-radius: 4px; background: #e9f7f0; }
+    .btn { border-radius: 5px; font-weight: 700; }
+    .btn-primary { background: #c85f24; border-color: #c85f24; }
+    .btn-primary:hover { background: #ad501d; border-color: #ad501d; }
+    .btn-outline-primary { color: #1f5b70; border-color: #9ebbc6; }
+    .btn-outline-primary:hover { background: #1f5b70; border-color: #1f5b70; }
+    @media (max-width: 900px) { .dashboard-sidebar { border-radius: 8px; } }
   </style>
 </head>
 <body>
@@ -605,7 +636,7 @@
   </main>
 
   <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFD8MsHS3c9puq8wzFO8neTPd9oEB6Qe9D3hB7J_1YKSwIjnTdH9TpFC2ZxocbYotNMQ/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwA_j2rMVnbd6pmN1rm0bol-NbGNuGnEWAvNasFpUm9DvxHFhnv55XAU1RXoHHISKcd/exec';
 
     function setHomeValue(id, value) {
       const element = document.getElementById(id);
