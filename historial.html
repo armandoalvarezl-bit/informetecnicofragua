@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
+  <script src="acceso.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Historial de informes técnicos</title>
@@ -20,7 +21,7 @@ body{background:#eef3f5;color:#263940}.topbar{background:#102f3d;color:#fff;bord
 <header class="topbar"><div class="topbar-inner"><div class="brand"><i class="bi bi-clock-history"></i><div><strong>Historial de informes</strong><span>Consulta de mantenimiento e infraestructura</span></div></div><div class="nav-links"><a class="button light" href="home.html"><i class="bi bi-house-door-fill"></i><span>Inicio</span></a><a class="button light" href="index.html"><i class="bi bi-file-earmark-plus"></i><span>Nuevo informe</span></a></div></div></header>
 <main><div class="intro"><h1>Informes anteriores</h1><p>Consulta los registros guardados y abre sus evidencias fotográficas.</p></div><div class="searchbar"><input id="query" type="search" placeholder="Buscar por número, fecha, peaje o novedad" autofocus><button class="button" id="searchButton" type="button"><i class="bi bi-search"></i><span>Buscar</span></button><button class="button light" id="regenerateButton" type="button" title="Recuperar PDFs faltantes"><i class="bi bi-arrow-repeat"></i><span>Recuperar PDFs faltantes</span></button></div><div class="status" id="status" role="status">Cargando informes...</div><div class="table-wrap"><div id="results" class="empty">Consultando registros guardados...</div></div></main>
 <script>
-const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwA_j2rMVnbd6pmN1rm0bol-NbGNuGnEWAvNasFpUm9DvxHFhnv55XAU1RXoHHISKcd/exec';
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyC9Veh9N9OTdfspPS2qRqiAIgznBc1-jLyV4i-d7j1wWTVkG4WvfxlG1D-_5JGg50XuQ/exec';
 const query=document.getElementById('query');
 const status=document.getElementById('status');
 const results=document.getElementById('results');
@@ -28,17 +29,17 @@ function escapeHtml(value){return String(value||'').replace(/&/g,'&amp;').replac
 function reportPreviewUrl(record,download=false){const params=new URLSearchParams({verInforme:'1',numero:record.numero||'',pdf:record.pdf||''});if(record.recordRow)params.set('registro',record.recordRow);if(download)params.set('descargar','1');return 'index.html?'+params.toString();}
 function loadHistory(){
  const text=query.value.trim();status.textContent='Consultando informes guardados...';results.className='empty';results.textContent='Cargando...';
- fetch(`${APPS_SCRIPT_URL}?action=history&q=${encodeURIComponent(text)}`).then(response=>response.json()).then(data=>{
+ ReportAuth.fetch(`${APPS_SCRIPT_URL}?action=history&q=${encodeURIComponent(text)}`).then(response=>response.json()).then(data=>{
     if(!data.ok)throw new Error(data.error||'No se pudo consultar el historial.');
     if(!Array.isArray(data.records))throw new Error('La implementación de Apps Script aún no tiene habilitada la consulta de historial. Copia el Code.gs actualizado y crea una nueva versión.');
     status.textContent=`${data.total} informe(s) encontrado(s).`;
     if(!data.records.length){results.className='empty';results.textContent='No hay informes que coincidan con la búsqueda.';return}
-  results.className='';results.innerHTML=`<table class="history-table"><thead><tr><th>Número</th><th>Fecha y hora</th><th>Peaje</th><th>Novedad</th><th>Estado</th><th>Responsable</th><th>Evidencias</th><th>PDF</th><th>Reenviar</th></tr></thead><tbody>${data.records.map(record=>`<tr><td><strong>${escapeHtml(record.numero)}</strong></td><td>${escapeHtml(record.fecha)}<br><small>${escapeHtml(record.hora)}</small></td><td>${escapeHtml(record.peaje)}</td><td>${escapeHtml(record.novedad)}<br><small>${escapeHtml(record.ubicacion)}</small></td><td>${escapeHtml(record.estado)}</td><td>${escapeHtml(record.responsable)}</td><td>${record.fotos?record.fotos.split(/\r?\n|\\n/).filter(Boolean).map((link,index)=>`<a href="${escapeHtml(link)}" target="_blank" rel="noopener">Foto ${index+1}</a>`).join(' · '):'Sin fotos'}</td><td>${record.pdf?`<a href="${escapeHtml(reportPreviewUrl(record))}" target="_blank" rel="noopener"><i class="bi bi-eye"></i> Vista previa / Imprimir</a><br><a href="${escapeHtml(reportPreviewUrl(record,true))}" target="_blank" rel="noopener"><i class="bi bi-download"></i> Descargar</a>`:'No disponible'}</td><td><button type="button" class="resend-button" data-resend-numero="${escapeHtml(record.numero)}" data-resend-pdf="${escapeHtml(record.pdf||'')}" data-resend-row="${escapeHtml(record.recordRow||'')}">Reenviar</button></td></tr>`).join('')}</tbody></table>`;
+  results.className='';results.innerHTML=`<table class="history-table"><thead><tr><th>Número</th><th>Fecha y hora</th><th>Peaje</th><th>Novedad</th><th>Estado</th><th>Responsable</th><th>Evidencias</th><th>PDF</th><th>Reenviar</th></tr></thead><tbody>${data.records.map(record=>`<tr><td><strong>${escapeHtml(record.numero)}</strong></td><td>${escapeHtml(record.fecha)}<br><small>${escapeHtml(record.hora)}</small></td><td>${escapeHtml(record.peaje)}</td><td>${escapeHtml(record.novedad)}<br><small>${escapeHtml(record.ubicacion)}</small></td><td>${escapeHtml(record.estado)}</td><td>${escapeHtml(record.responsable)}</td><td>${record.fotos?record.fotos.split(/\r?\n|\\n/).filter(Boolean).map((link,index)=>`<a href="${escapeHtml(link)}" target="_blank" rel="noopener">Foto ${index+1}</a>`).join(' · '):'Sin fotos'}</td><td>${record.pdf?`<a href="${escapeHtml(reportPreviewUrl(record))}"><i class="bi bi-eye"></i> Vista previa / Imprimir</a><br><a href="${escapeHtml(reportPreviewUrl(record,true))}"><i class="bi bi-download"></i> Descargar</a>`:'No disponible'}</td><td><button type="button" class="resend-button" data-resend-numero="${escapeHtml(record.numero)}" data-resend-pdf="${escapeHtml(record.pdf||'')}" data-resend-row="${escapeHtml(record.recordRow||'')}">Reenviar</button></td></tr>`).join('')}</tbody></table>`;
  }).catch(error=>{status.textContent='No se pudo consultar el historial.';results.className='empty';results.textContent=error.message+' Actualiza la implementación de Apps Script si acabas de cambiar Code.gs.'});
 }
 function regeneratePdfs(){
  status.textContent='Recuperando PDFs faltantes y conservando los originales...';
- fetch(`${APPS_SCRIPT_URL}?action=regenerate&q=${encodeURIComponent(query.value.trim())}`).then(response=>response.json()).then(data=>{
+ ReportAuth.fetch(`${APPS_SCRIPT_URL}?action=regenerate&q=${encodeURIComponent(query.value.trim())}`).then(response=>response.json()).then(data=>{
   if(!data.ok)throw new Error(data.error||'No se pudieron regenerar los PDFs.');
   status.textContent=data.message+' Actualizando historial...';loadHistory();
  }).catch(error=>{status.textContent=error.message+' Actualiza la implementación de Apps Script.'});

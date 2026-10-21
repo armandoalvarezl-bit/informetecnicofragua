@@ -1,5 +1,5 @@
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwA_j2rMVnbd6pmN1rm0bol-NbGNuGnEWAvNasFpUm9DvxHFhnv55XAU1RXoHHISKcd/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyC9Veh9N9OTdfspPS2qRqiAIgznBc1-jLyV4i-d7j1wWTVkG4WvfxlG1D-_5JGg50XuQ/exec';
 const ids=["numeroInforme","fecha","horaInicio","hora","duracion","ubicacion","novedad","tipoActividad","areaSistema","elementoIntervenido","lugarEvento","estado","procedencia","autorizacion","evidenciaFecha","descripcion","actividad","resumen","materiales","diagnostico","verificaciones","resultado","recomendacion","responsable","supervisor","paso1_titulo","paso1_desc","paso2_titulo","paso2_desc","paso3_titulo","paso3_desc","paso4_titulo","paso4_desc"];
 const camposRequeridos=["fecha","horaInicio","hora","ubicacion","novedad","tipoActividad","areaSistema","elementoIntervenido","lugarEvento","estado","evidenciaFecha","descripcion","actividad","resumen","resultado","recomendacion","responsable","supervisor"];
 let fotos=[];

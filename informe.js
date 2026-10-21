@@ -1,4 +1,4 @@
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwA_j2rMVnbd6pmN1rm0bol-NbGNuGnEWAvNasFpUm9DvxHFhnv55XAU1RXoHHISKcd/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyC9Veh9N9OTdfspPS2qRqiAIgznBc1-jLyV4i-d7j1wWTVkG4WvfxlG1D-_5JGg50XuQ/exec';
 const ids=["peaje","numeroInforme","fecha","horaInicio","hora","duracion","ubicacion","novedad","tipoActividad","areaSistema","elementoIntervenido","lugarEvento","estado","procedencia","autorizacion","evidenciaFecha","descripcion","actividad","resumen","materiales","diagnostico","verificaciones","resultado","recomendacion","responsable","supervisor","paso1_titulo","paso1_desc","paso2_titulo","paso2_desc","paso3_titulo","paso3_desc","paso4_titulo","paso4_desc"];
 const camposRequeridos=["fecha","horaInicio","hora","ubicacion","novedad","tipoActividad","areaSistema","elementoIntervenido","lugarEvento","estado","descripcion","actividad","verificaciones","resultado","recomendacion","responsable","supervisor"];
 let fotos=[];
@@ -243,7 +243,7 @@ function cargarHistorial(){
  }
  status.textContent="Consultando informes guardados...";
  results.innerHTML="";
- fetch(`${APPS_SCRIPT_URL}?action=history&q=${encodeURIComponent(query)}`, { method: 'GET', mode: 'cors', cache: 'no-store' })
+ ReportAuth.fetch(`${APPS_SCRIPT_URL}?action=history&q=${encodeURIComponent(query)}`, { method: 'GET', mode: 'cors', cache: 'no-store' })
   .then(response=>{
    if(!response.ok){
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -291,7 +291,7 @@ async function guardarEnNube(enviarCorreo=false,onComplete=null,silencioso=false
  showLoading(enviarCorreo ? 'Enviando informe' : 'Guardando informe', enviarCorreo ? 'Se está enviando el registro a los correos configurados...' : 'Se está guardando la información y las evidencias...');
  setStatus(enviarCorreo ? 'Guardando y enviando informe...' : 'Guardando informe y evidencias...', 'info');
  try{
-  const capabilityResponse=await fetch(APPS_SCRIPT_URL+'?action=capabilities',{cache:'no-store'});
+  const capabilityResponse=await ReportAuth.fetch(APPS_SCRIPT_URL+'?action=capabilities',{cache:'no-store'});
   const service=await capabilityResponse.json();
   if(!capabilityResponse.ok||service?.capabilities?.browserPdf!==true)throw new Error('El servicio de correo necesita la actualización para adjuntar el PDF original. No se ha enviado el informe.');
   const archivo=await generarPdfInforme(reportHtml,nombreArchivoPdf());
@@ -304,7 +304,7 @@ async function guardarEnNube(enviarCorreo=false,onComplete=null,silencioso=false
   openAppModal("No se generó el PDF",error.message,null,"Entendido",false);
   return;
  }
- fetch(APPS_SCRIPT_URL,{
+ ReportAuth.fetch(APPS_SCRIPT_URL,{
   method:"POST",
   mode:"cors",
   cache:"no-store",

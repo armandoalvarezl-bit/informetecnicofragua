@@ -1,4 +1,6 @@
-﻿# Conexion con Google Apps Script
+# Conexion con Google Apps Script
+
+El sistema ahora requiere usuario y contraseña. Sigue **[ACCESO.md](ACCESO.md)** para crear tu usuario; el sistema guarda la configuración automáticamente. Abre `login.html` para ingresar.
 
 ## 1. Crear el receptor
 

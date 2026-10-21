@@ -21,7 +21,7 @@
   if(busy||!selected)return;
   busy=true;confirm.disabled=true;cancel.disabled=true;statusEl.textContent='Reenviando el informe...';
   try{
-   const response=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(selected)});
+   const response=await ReportAuth.fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(selected)});
    if(!response.ok)throw new Error('No se pudo conectar con el servicio de correo.');
    let data;try{data=await response.json();}catch{throw new Error('El servidor no confirmó el reenvío. Revise Correos enviados antes de reintentar.');}
    if(!data||data.ok!==true||data.emailSent!==true){

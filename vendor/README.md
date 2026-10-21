@@ -6,3 +6,6 @@ Copias locales para que la generación no dependa de descargar scripts al usar e
 - [jsPDF 4.2.1](https://github.com/parallax/jsPDF/tree/v4.2.1): jspdf-4.2.1.umd.min.js. Licencia en LICENSE-jsPDF.txt. SHA-256: E6551FCDC32F09D6853B2C5126D18D01D9447E0DA618A41A11EBEEE0F6C20D54.
 
 Distribuciones obtenidas desde jsDelivr, versiones fijadas. Licencias descargadas de los repositorios oficiales.
+
+
+bcryptjs 3.0.2 (`bcrypt-3.0.2.js`): https://github.com/dcodeIO/bcrypt.js, licencia BSD-3-Clause incluida en el archivo. Usado para configurar contraseñas localmente; también se incluye en Code.gs con adaptación del temporizador para la API síncrona de Apps Script.

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
+  <script src="acceso.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inicio | Centro de Informes Técnicos</title>
@@ -636,7 +637,7 @@
   </main>
 
   <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwA_j2rMVnbd6pmN1rm0bol-NbGNuGnEWAvNasFpUm9DvxHFhnv55XAU1RXoHHISKcd/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyC9Veh9N9OTdfspPS2qRqiAIgznBc1-jLyV4i-d7j1wWTVkG4WvfxlG1D-_5JGg50XuQ/exec';
 
     function setHomeValue(id, value) {
       const element = document.getElementById(id);
@@ -667,8 +668,8 @@
       const status = document.getElementById('syncStatus');
       try {
         const [historyResponse, sentResponse] = await Promise.all([
-          fetch(APPS_SCRIPT_URL + '?action=history&q=', { mode: 'cors', cache: 'no-store' }),
-          fetch(APPS_SCRIPT_URL + '?action=sent&q=', { mode: 'cors', cache: 'no-store' })
+          ReportAuth.fetch(APPS_SCRIPT_URL + '?action=history&q=', { mode: 'cors', cache: 'no-store' }),
+          ReportAuth.fetch(APPS_SCRIPT_URL + '?action=sent&q=', { mode: 'cors', cache: 'no-store' })
         ]);
         if (!historyResponse.ok || !sentResponse.ok) throw new Error('Servicio no disponible');
 

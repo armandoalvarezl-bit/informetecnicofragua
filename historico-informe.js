@@ -8,10 +8,10 @@
  async function abrirGuardado(){
   showLoading('Abriendo informe guardado','Preparando el documento con sus evidencias y firmas...');
   try{
-   const capabilities=await fetch(APPS_SCRIPT_URL+'?action=capabilities',{cache:'no-store'}).then(response=>response.json());
+   const capabilities=await ReportAuth.fetch(APPS_SCRIPT_URL+'?action=capabilities',{cache:'no-store'}).then(response=>response.json());
    if(!capabilities.capabilities?.reportPreview)throw new Error('La vista previa de informes guardados requiere actualizar Code.gs y publicar una nueva versión de la implementación existente.');
    const query=new URLSearchParams({action:'report',numeroInforme:params.get('numero')||'',pdf:params.get('pdf')||'',recordRow:params.get('registro')||''});
-   const response=await fetch(APPS_SCRIPT_URL+'?'+query.toString(),{cache:'no-store'});
+   const response=await ReportAuth.fetch(APPS_SCRIPT_URL+'?'+query.toString(),{cache:'no-store'});
    const record=await response.json();if(!record.ok)throw new Error(record.error||'No se pudo abrir el informe guardado.');
    let artifact;
    if(record.pdfBase64&&!record.requiresRepair){artifact=await pdfGuardadoAVisor(record.pdfBase64,record.filename||('Informe_'+record.numeroInforme+'.pdf'));}
@@ -34,7 +34,7 @@
    hideLoading();
    await abrirVisorPdf(artifact,{saveCorrected:record.requiresRepair?async archivo=>{
     const request={action:'replacePdf',numeroInforme:record.numeroInforme,recordRow:record.recordRow,pdf:record.pdf,pdfBase64:archivo.base64,pdfSource:'browser'};
-    const result=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(request)}).then(response=>response.json());
+    const result=await ReportAuth.fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(request)}).then(response=>response.json());
     if(!result.ok||!result.pdfPreserved)throw new Error(result.error||'No se confirmó la actualización del PDF.');
     record.pdf=result.pdf;
    }:null});

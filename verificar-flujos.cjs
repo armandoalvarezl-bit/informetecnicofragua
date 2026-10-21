@@ -10,6 +10,7 @@ function reset(records=[row]){
  context.logSentEmail=(...args)=>logCalls.push(args);
  context.saveReportPdf=(...args)=>{generated.push(args);return row[26];};
  context.jsonResponse=data=>data;
+ context.requireSession_=()=>({user:{username:'test'}}); // Auth is covered separately in verificar-acceso.cjs.
 }
 let passed=0;function test(name,fn){fn();passed++;console.log('OK '+name);}
 reset();test('Reenvia PDF existente sin crear filas ni cambiar numero',()=>{const response=context.doPost({postData:{contents:JSON.stringify({action:'resend',numeroInforme:'002',recordRow:2,pdf:row[26]})}});assert.equal(response.ok,true);assert.equal(response.emailSent,true);assert.equal(mailCalls[0][0].numeroInforme,'002');assert.equal(mailCalls[0][2],row[26]);assert.equal(rows.length,2);assert.equal(writes.length,0);assert.equal(logCalls.length,1);assert.equal(released,1);});
